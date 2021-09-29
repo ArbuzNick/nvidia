@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
-
-__global__ void sum_kernel(int *A, int *B, int *C){
+#include <stdio.h>
+__global__ void vecAdd(double *A, double *B, double *C){
 
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -15,13 +15,13 @@ int main(int argc, char* argv[]){
 	double *B = (double*)malloc(n * sizeof(double));
 	double *res = (double*)malloc(n * sizeof(double));
 
-	std::cout >> "Please, enter first vector: "
+	std::cout << "Please, enter first vector: ";
 	for (int i = 0; i < n; ++i){
-		std::cin << A[i];
+		std::cin >> A[i];
 	}
-	std::cout >> "Please, enter second vector: "
+	std::cout << "Please, enter second vector: ";
 	for (int i = 0; i < n; ++i){
-		std::cin << B[i];
+		std::cin >> B[i];
 	}
 
 	double *A_gpu, *B_gpu, *res_gpu;
@@ -38,11 +38,15 @@ int main(int argc, char* argv[]){
 	int block_size = 1024;
 	int grid_size = (n - 1) / block_size + 1;
 
-	vecAdd<<<grid_size, block_size>>>(A_gpu, B_gpu, res_gpu, n);
+	vecAdd<<<grid_size, block_size>>>(A_gpu, B_gpu, res_gpu);
 
-	cudaMemcpy(res, res_gpu, bytes, cudaMemcpyDeviseToHost);
+	cudaMemcpy(res, res_gpu, bytes, cudaMemcpyDeviceToHost);
 
 	cudaFree(A_gpu);
 	cudaFree(B_gpu);
-	cudaFree(res_gpy)
+	cudaFree(res_gpu);
+
+	for(int i = 0; i < n; ++i){
+		std::cout << res[i] << std::endl;
+	}
 }
