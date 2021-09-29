@@ -35,7 +35,7 @@ bool checkResults(double *A, double *B, double *res_gpu){
 		std::cout << "Everything is great, results are equal!" << '\n';
 
 	} else{
-		std::cout << "There are " << num_of_err << " errors there. Hm... maybe we did something wrong..." << '\n';
+		std::cout << "There are " << num_of_err << " errors. Hm... maybe we did something wrong..." << '\n';
 	}
 	return is_correct;
 }
