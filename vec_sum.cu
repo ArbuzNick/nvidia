@@ -96,10 +96,11 @@ int main(int argc, char* argv[]){
 	cudaFree(res_gpu);
 
 	checkResults(A, B, res);
-
+/*
 	for(int i = 0; i < n; ++i){
 		std::cout << res[i] << std::endl;
 	}
+*/
 	free(A);
 	free(B);
 	free(res);
