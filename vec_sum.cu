@@ -4,7 +4,7 @@
 __global__ void sum_kernel(int *A, int *B, int *C){
 
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;
-	
+
 	C[idx] = A[idx] + B[idx];
 }
 
@@ -13,9 +13,9 @@ int main(int argc, char* argv[]){
 	sscanf(argv[1], "%d", &n);
 	double *A = (double*)malloc(n * sizeof(double));
 	double *B = (double*)malloc(n * sizeof(double));
-	double *res = (double*)malloc(n * sizeof(double)); 
+	double *res = (double*)malloc(n * sizeof(double));
 
-	std::cout >> "Please, enter first vector: " 
+	std::cout >> "Please, enter first vector: "
 	for (int i = 0; i < n; ++i){
 		std::cin << A[i];
 	}
@@ -25,8 +25,8 @@ int main(int argc, char* argv[]){
 	}
 
 	double *A_gpu, *B_gpu, *res_gpu;
-	
-	size_t bytes = n * sizeof(double); 
+
+	size_t bytes = n * sizeof(double);
 
 	cudaMalloc(&A_gpu, bytes);
 	cudaMalloc(&B_gpu, bytes);
@@ -44,5 +44,5 @@ int main(int argc, char* argv[]){
 
 	cudaFree(A_gpu);
 	cudaFree(B_gpu);
-	cudaFree(res_gpy)	
+	cudaFree(res_gpy)
 }
