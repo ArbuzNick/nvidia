@@ -63,8 +63,8 @@ int main(int argc, char* argv[]){
 			break;
 		case 'n':
 			for (int i = 0; i < n; ++i){
-				A[i] = (double(rand()) / 10000) + rand();
-				B[i] = (double(rand()) / 10000) + rand();
+				A[i] = (double(rand()) / rand()) + rand();
+				B[i] = (double(rand()) / rand()) + rand();
 			}
 			break;
 		default:
