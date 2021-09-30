@@ -7,7 +7,7 @@
 
 __global__ void transp(double *matrix, int size){
     printf("Hello?\n");
-    //Индекс текущего блока в гриде
+    /*//Индекс текущего блока в гриде
     int blockIndex = blockIdx.x + blockIdx.y*gridDim.x + blockIdx.z*gridDim.y*gridDim.x;
     //Индекс треда внутри текущего блока
     int ThreadIndex = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
@@ -20,7 +20,7 @@ __global__ void transp(double *matrix, int size){
         double tmp = matrix[(idx / size) * size + (idx % size)];
         matrix[(idx / size) * size + (idx % size)] = matrix[(idx % size) * size + (idx / size)];
         matrix[(idx % size) * size + (idx / size)] = tmp;
-    }
+    }*/
 }
 
 int n;
