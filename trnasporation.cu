@@ -109,7 +109,7 @@ int main(int argc, char const *argv[]) {
     }
 */
     int block_size = 1024;
-    int grid_size = (n - 1) / block_size + 1;
+    int grid_size = (1 - 1) / block_size + 1;
 /*
     double *gpu_matrix;*/
     dim3 dimBlock(block_size, block_size, 1);
