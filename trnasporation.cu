@@ -106,17 +106,18 @@ int main(int argc, char const *argv[]) {
         std::cout << '\n';
     }
 
-    int block_size = 10;
+    int block_size = 1024;
     int grid_size = (n - 1) / block_size + 1;
 
     double *gpu_matrix;
-
+    dim2 dimBlock(block_size, block_size);
+    dim2 dimGrid(grid_size, grid_size);
     cudaMalloc(&gpu_matrix, bytes);
 
     cudaMemcpy(gpu_matrix, matrix, bytes, cudaMemcpyHostToDevice);
 
     auto start = std::chrono::steady_clock::now();
-	transp<<<grid_size, block_size>>>(gpu_matrix, n);
+	transp<<<dimGrid, dimBlock>>>(gpu_matrix, n);
 	cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
