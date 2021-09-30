@@ -27,24 +27,21 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
 {
     int t;
     auto start = std::chrono::steady_clock::now();
-    for(int i = 0; i < n; ++i)
+    for(int i = 0; i < n * n; ++i)
     {
-        for(int j = i; j < n; ++j)
-        {
-            t = matrix[i * n + j];
-            matrix[i * n + j] = matrix[j * n + i];
-            matrix[j * n + i] = t;
-        }
+        t = matrix[(i / n) * n + (i % n)];
+        matrix[(i / n) * n + (i % n)] = matrix[(i % n) * n + (i / n)];
+        matrix[(i % n) * n + (i / n)] = t;
     }
     auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
  	std::cout << "Time for CPU: " << elapsed_seconds.count() << "s\n";
-    /*for(int i = 0; i < n; ++i){
+    for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
-            std::cout << std::setw(8) << matrix[i][j];
+            std::cout << std::setw(8) << matrix[i * n + j];
         }
         std::cout << '\n';
-    }*/
+    }
     int num_of_err = 0;
 	bool is_correct = 1;
 	for (int i = 0; i < n; ++i){
