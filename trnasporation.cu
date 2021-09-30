@@ -53,7 +53,7 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
         for (int j = 0; j < n; ++j){
     		if (matrix[i * n + j] != res_gpu[i * n + j]){
     			num_of_err++;
-    			std::cout << "Error in " << i + 1 << ", " << j + 1 << " element;\nOn CPU " << matrix[i * n + j] << ", On GPU " << res_gpu[i * n + j] << ";\n";
+    			//std::cout << "Error in " << i + 1 << ", " << j + 1 << " element;\nOn CPU " << matrix[i * n + j] << ", On GPU " << res_gpu[i * n + j] << ";\n";
     			is_correct = 0;
     		}
         }
@@ -62,7 +62,7 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
 		std::cout << "Everything is great, results are equal!" << '\n';
 
 	} else{
-		std::cout << "There are " << num_of_err << " errors. Hm... maybe we did something wrong..." << '\n';
+		//std::cout << "There are " << num_of_err << " errors. Hm... maybe we did something wrong..." << '\n';
 	}
 	return is_correct;
 }
