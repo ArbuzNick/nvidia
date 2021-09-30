@@ -29,10 +29,13 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
     auto start = std::chrono::steady_clock::now();
     for(int i = 0; i < n * n; ++i)
     {
-        std::cout << matrix[(i / n) * n + (i % n)] << " " << matrix[(i % n) * n + (i / n)] << '\n';
-        t = matrix[(i / n) * n + (i % n)];
-        matrix[(i / n) * n + (i % n)] = matrix[(i % n) * n + (i / n)];
-        matrix[(i % n) * n + (i / n)] = t;
+        if(idx / size > idx % size){
+            std::cout << matrix[(i / n) * n + (i % n)] << " " << matrix[(i % n) * n + (i / n)] << '\n';
+            t = matrix[(i / n) * n + (i % n)];
+            matrix[(i / n) * n + (i % n)] = matrix[(i % n) * n + (i / n)];
+            matrix[(i % n) * n + (i / n)] = t;
+        }
+
     }
     auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
