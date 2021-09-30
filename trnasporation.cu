@@ -119,7 +119,7 @@ int main(int argc, char const *argv[]) {
     cudaMemcpy(gpu_matrix, matrix, bytes, cudaMemcpyHostToDevice);
 
     auto start = std::chrono::steady_clock::now();*/
-	transp<<<dimGrid, dimBlock>>>(/*gpu_matrix, n*/);
+	transp<<<grid_size, block_size>>>(/*gpu_matrix, n*/);
 	/*cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
