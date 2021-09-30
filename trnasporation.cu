@@ -107,9 +107,7 @@ int main(int argc, char const *argv[]) {
 
     cudaMalloc(&gpu_matrix, bytes);
 
-    for(int i = 0; i < n; ++i){
-        cudaMemcpy(gpu_matrix + (n * i), matrix + (n * i), n * sizeof(double), cudaMemcpyHostToDevice);
-    }
+    cudaMemcpy(gpu_matrix, matrix, bytes, cudaMemcpyHostToDevice);
 
     auto start = std::chrono::steady_clock::now();
 	transp<<<grid_size, block_size>>>(gpu_matrix, n);
@@ -127,9 +125,7 @@ int main(int argc, char const *argv[]) {
     double* matrix_res;
     matrix_res = (double*)malloc(bytes);
 
-    for(int i = 0; i < n; ++i){
-        cudaMemcpy(matrix_res + (n * i), gpu_matrix + (n * i), n * sizeof(double), cudaMemcpyDeviceToHost);
-    }
+    cudaMemcpy(matrix_res, gpu_matrix, bytes, cudaMemcpyDeviceToHost);
 
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
