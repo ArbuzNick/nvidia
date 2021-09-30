@@ -143,7 +143,7 @@ int main(int argc, char const *argv[]) {
         std::cout << '\n';
     }*/
 
-    transpose(matrix, matrix_res);
+    //transpose(matrix, matrix_res);
     cudaFree(gpu_matrix);
     free(matrix);
     return 0;
