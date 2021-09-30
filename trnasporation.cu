@@ -1,13 +1,18 @@
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <cstdlib>
+#include <chrono>
 
 int n;
 
-__glodal__ void transp(double *matrix[]){
+__glodal__ void transp(double *matrix[], int size){
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     int idy = blockIdx.y * blockDim.y + threadIdx.y;
     if (idx > idy){
-        double tmp = matrix[idx * n + idy];
-        matrix[idx * n + idy] = matrix[idy * n + idx];
-        matrix[idy * n + idx] = tmp;
+        double tmp = matrix[idx * size + idy];
+        matrix[idx * size + idy] = matrix[idy * size + idx];
+        matrix[idy * size + idx] = tmp;
     }
 }
 
@@ -19,7 +24,7 @@ int main(int argc, char const *argv[]) {
     for(int i = 0; i < n; ++i){
          matrix[i] = new(double[n]);
     }
-
+    char decision;
     std::cout << "Do you want to fill matrix by yourself? (Y/N)" << '\n';
 	std::cin >> decision;
 	switch(tolower(decision))
@@ -62,7 +67,7 @@ int main(int argc, char const *argv[]) {
     }
 
     auto start = std::chrono::steady_clock::now();
-	transp<<<grid_size, block_size>>>(gpu_matrix);
+	transp<<<grid_size, block_size>>>(gpu_matrix, n);
 	cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
