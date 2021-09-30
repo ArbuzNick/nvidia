@@ -3,9 +3,6 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <chrono>
-
-int n;
-
 __glodal__ void transp(double *matrix[], int size){
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     int idy = blockIdx.y * blockDim.y + threadIdx.y;
@@ -16,6 +13,7 @@ __glodal__ void transp(double *matrix[], int size){
     }
 }
 
+int n;
 
 int main(int argc, char const *argv[]) {
     sscanf(argv[1], "%d", &n);
