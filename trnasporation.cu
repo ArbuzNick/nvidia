@@ -15,6 +15,7 @@ __global__ void transp(double *matrix, int size){
     int idx = blockIndex*blockDim.x*blockDim.y*blockDim.z + ThreadIndex;
 
     if (idx / size > idx % size){
+        printf("%lf %lf\n", matrix[(idx / size) * size + (idx % size)], matrix[(idx % size) * size + (idx / size)]);
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
         double tmp = matrix[(idx / size) * size + (idx % size)];
         matrix[(idx / size) * size + (idx % size)] = matrix[(idx % size) * size + (idx / size)];
