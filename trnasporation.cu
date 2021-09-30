@@ -6,13 +6,18 @@
 #include <iomanip>
 
 __global__ void transp(double *matrix, int size){
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    int idy = blockIdx.y * blockDim.y + threadIdx.y;
-    if (idx > idy){
+    int blockIndex = blockIdx.x + blockIdx.y * gridDim.x;
+    //Индекс треда внутри текущего блока
+    int ThreadIndex = threadIdx.x + threadIdx.y * blockDim.x;
+
+    //глобальный индекс нити
+    int idx = blockIndex*blockDim.x*blockDim.y + ThreadIndex;
+
+    if (idx / size > idy % size){
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
-        double tmp = matrix[idx * size + idy];
-        matrix[idx * size + idy] = matrix[idy * size + idx];
-        matrix[idy * size + idx] = tmp;
+        double tmp = matrix[(idx / size) * size + (idx % size)];
+        matrix[(idx / size) * size + (idx % size)] = matrix[(idx % size) * size + (idx / size)];
+        matrix[(idx % size) * size + (idx / size)] = tmp;
     }
 }
 
@@ -100,7 +105,7 @@ int main(int argc, char const *argv[]) {
         std::cout << '\n';
     }
 
-    int block_size = 1024;
+    int block_size = 10;
     int grid_size = (n - 1) / block_size + 1;
 
     double *gpu_matrix;
