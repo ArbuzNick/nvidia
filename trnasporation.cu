@@ -5,9 +5,9 @@
 #include <chrono>
 #include <iomanip>
 
-__global__ void transp(double *matrix, int size){
+__global__ void transp(/*double *matrix, int size*/){
     printf("Hello?\n");
-    //Индекс текущего блока в гриде
+    /*//Индекс текущего блока в гриде
     int blockIndex = blockIdx.x + blockIdx.y*gridDim.x + blockIdx.z*gridDim.y*gridDim.x;
     //Индекс треда внутри текущего блока
     int ThreadIndex = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
@@ -19,10 +19,10 @@ __global__ void transp(double *matrix, int size){
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
         double tmp = matrix[(idx / size) * size + (idx % size)];
         matrix[(idx / size) * size + (idx % size)] = matrix[(idx % size) * size + (idx / size)];
-        matrix[(idx % size) * size + (idx / size)] = tmp;
+        matrix[(idx % size) * size + (idx / size)] = tmp;*/
     }
 }
-
+/*
 int n;
 
 bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], либо int (*matrix)[5]
@@ -67,7 +67,7 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
 	}
 	return is_correct;
 }
-
+*/
 
 int main(int argc, char const *argv[]) {
     /*sscanf(argv[1], "%d", &n);
