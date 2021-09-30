@@ -78,7 +78,7 @@ int main(int argc, char const *argv[]) {
          matrix[i] = new(double[n]);
     }*/
     char decision;
-    std::cout << "Do you want to fill matrix by yourself? (Y/N)" << '\n';
+    /*std::cout << "Do you want to fill matrix by yourself? (Y/N)" << '\n';
 	std::cin >> decision;
 	switch(tolower(decision))
 	{
@@ -93,7 +93,7 @@ int main(int argc, char const *argv[]) {
 		case 'n':
 			for(int i = 0; i < n; ++i){
                 for(int j = 0; j < n; ++j){
-                    matrix[i * n + j] = /*(double(rand()) / rand()) + */int(rand() / 100000000);
+                    matrix[i * n + j] = /*(double(rand()) / rand()) + int(rand() / 100000000);
                 }
 			}
 			break;
@@ -107,7 +107,7 @@ int main(int argc, char const *argv[]) {
         }
         std::cout << '\n';
     }
-
+*/
     int block_size = 1024;
     int grid_size = (n - 1) / block_size + 1;
 
@@ -123,7 +123,7 @@ int main(int argc, char const *argv[]) {
 	cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
- 	std::cout << "Time for GPU: " << elapsed_seconds.count() << "s\n";
+ 	//std::cout << "Time for GPU: " << elapsed_seconds.count() << "s\n";
     /*for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
             std::cout << std::setw(8) << gpu_matrix[i * n + j];
@@ -135,13 +135,13 @@ int main(int argc, char const *argv[]) {
     matrix_res = (double*)malloc(bytes);
 
     cudaMemcpy(matrix_res, gpu_matrix, bytes, cudaMemcpyDeviceToHost);
-    std::cout << "GPU: " << '\n';
+    /*std::cout << "GPU: " << '\n';
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
             std::cout << std::setw(8) << matrix_res[i * n + j];
         }
         std::cout << '\n';
-    }
+    }*/
 
     transpose(matrix, matrix_res);
     cudaFree(gpu_matrix);
