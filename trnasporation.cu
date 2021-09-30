@@ -6,7 +6,7 @@
 #include <iomanip>
 
 __global__ void transp(double *matrix, int size){
-
+    printf("Hello?\n");
     //Индекс текущего блока в гриде
     int blockIndex = blockIdx.x + blockIdx.y*gridDim.x + blockIdx.z*gridDim.y*gridDim.x;
     //Индекс треда внутри текущего блока
@@ -119,8 +119,8 @@ int main(int argc, char const *argv[]) {
     cudaMemcpy(gpu_matrix, matrix, bytes, cudaMemcpyHostToDevice);
 
     auto start = std::chrono::steady_clock::now();
-	//transp<<<dimGrid, dimBlock>>>(gpu_matrix, n);
-	//cudaDeviceSynchronize();
+	transp<<<dimGrid, dimBlock>>>(gpu_matrix, n);
+	cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
  	std::cout << "Time for GPU: " << elapsed_seconds.count() << "s\n";
