@@ -117,6 +117,13 @@ int main(int argc, char const *argv[]) {
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
  	std::cout << "Time for GPU: " << elapsed_seconds.count() << "s\n";
+    for(int i = 0; i < n; ++i){
+        for(int j = 0; j < n; ++j){
+            std::cout << std::setw(8) << gpu_matrix[i * n + j];
+        }
+        std::cout << '\n';
+    }
+
     double** matrix_res;
     matrix_res = (double**)malloc(n * sizeof(double*));
     for(int i = 0; i < n; ++i){
