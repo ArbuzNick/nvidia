@@ -59,7 +59,7 @@ int main(int argc, char const *argv[]) {
     int grid_size = (n - 1) / block_size + 1;
 
     double *gpu_matrix;
-    int bytes = n * n * sizeof(double)
+    int bytes = n * n * sizeof(double);
     cudaMalloc(&gpu_matrix, bytes);
 
     for(int i = 0; i < n; ++i){
