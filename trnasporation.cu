@@ -70,13 +70,13 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
 
 
 int main(int argc, char const *argv[]) {
-    sscanf(argv[1], "%d", &n);
+    /*sscanf(argv[1], "%d", &n);
     int bytes = n * n * sizeof(double);
     double* matrix;
     matrix = (double*)malloc(bytes);
     /*for(int i = 0; i < n; ++i){
          matrix[i] = new(double[n]);
-    }*/
+    }
     char decision;
     std::cout << "Do you want to fill matrix by yourself? (Y/N)" << '\n';
 	std::cin >> decision;
@@ -93,7 +93,7 @@ int main(int argc, char const *argv[]) {
 		case 'n':
 			for(int i = 0; i < n; ++i){
                 for(int j = 0; j < n; ++j){
-                    matrix[i * n + j] = /*(double(rand()) / rand()) + */int(rand() / 100000000);
+                    matrix[i * n + j] = (double(rand()) / rand()) + int(rand() / 100000000);
                 }
 			}
 			break;
@@ -107,10 +107,10 @@ int main(int argc, char const *argv[]) {
         }
         std::cout << '\n';
     }
-
+*/
     int block_size = 1024;
     int grid_size = (n - 1) / block_size + 1;
-
+/*
     double *gpu_matrix;
     dim3 dimBlock(block_size, block_size, 1);
     dim3 dimGrid(grid_size, grid_size, 1);
@@ -118,18 +118,18 @@ int main(int argc, char const *argv[]) {
 
     cudaMemcpy(gpu_matrix, matrix, bytes, cudaMemcpyHostToDevice);
 
-    auto start = std::chrono::steady_clock::now();
-	transp<<<dimGrid, dimBlock>>>(gpu_matrix, n);
-	cudaDeviceSynchronize();
+    auto start = std::chrono::steady_clock::now();*/
+	transp<<<dimGrid, dimBlock>>>(/*gpu_matrix, n*/);
+	/*cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
  	std::cout << "Time for GPU: " << elapsed_seconds.count() << "s\n";
-    /*for(int i = 0; i < n; ++i){
+    for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
             std::cout << std::setw(8) << gpu_matrix[i * n + j];
         }
         std::cout << '\n';
-    }*/
+    }
 
     double* matrix_res;
     matrix_res = (double*)malloc(bytes);
@@ -145,6 +145,6 @@ int main(int argc, char const *argv[]) {
 
     transpose(matrix, matrix_res);
     cudaFree(gpu_matrix);
-    free(matrix);
+    free(matrix);*/
     return 0;
 }
