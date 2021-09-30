@@ -6,12 +6,13 @@
 #include <iomanip>
 
 __global__ void transp(double *matrix, int size){
-    int blockIndex = blockIdx.x + blockIdx.y * gridDim.x;
+    //Индекс текущего блока в гриде
+    int blockIndex = blockIdx.x + blockIdx.y*gridDim.x + blockIdx.z*gridDim.y*gridDim.x;
     //Индекс треда внутри текущего блока
-    int ThreadIndex = threadIdx.x + threadIdx.y * blockDim.x;
+    int ThreadIndex = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
 
     //глобальный индекс нити
-    int idx = blockIndex*blockDim.x*blockDim.y + ThreadIndex;
+    int idx = blockIndex*blockDim.x*blockDim.y*blockDim.z + ThreadIndex;
 
     if (idx / size > idx % size){
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
@@ -30,7 +31,6 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
     for(int i = 0; i < n * n; ++i)
     {
         if(i / n > i % n){
-            std::cout << matrix[(i / n) * n + (i % n)] << " " << matrix[(i % n) * n + (i / n)] << '\n';
             t = matrix[(i / n) * n + (i % n)];
             matrix[(i / n) * n + (i % n)] = matrix[(i % n) * n + (i / n)];
             matrix[(i % n) * n + (i / n)] = t;
