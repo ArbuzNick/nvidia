@@ -108,7 +108,7 @@ int main(int argc, char const *argv[]) {
     cudaMalloc(&gpu_matrix, bytes);
 
     for(int i = 0; i < n; ++i){
-        cudaMemcpy(gpu_matrix + (n * i), matrix[i], n * sizeof(double), cudaMemcpyHostToDevice);
+        cudaMemcpy(gpu_matrix + (n * i * sizeof(double)), matrix[i], n * sizeof(double), cudaMemcpyHostToDevice);
     }
 
     auto start = std::chrono::steady_clock::now();
@@ -124,7 +124,7 @@ int main(int argc, char const *argv[]) {
     }
 
     for(int i = 0; i < n; ++i){
-        cudaMemcpy(matrix_res[i], gpu_matrix + (n * i), n * sizeof(double), cudaMemcpyDeviceToHost);
+        cudaMemcpy(matrix_res[i], gpu_matrix + (n * i * sizeof(double)), n * sizeof(double), cudaMemcpyDeviceToHost);
     }
 
     for(int i = 0; i < n; ++i){
