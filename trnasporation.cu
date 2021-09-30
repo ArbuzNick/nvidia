@@ -19,8 +19,8 @@ __global__ void transp(/*double *matrix, int size*/){
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
         double tmp = matrix[(idx / size) * size + (idx % size)];
         matrix[(idx / size) * size + (idx % size)] = matrix[(idx % size) * size + (idx / size)];
-        matrix[(idx % size) * size + (idx / size)] = tmp;*/
-    }
+        matrix[(idx % size) * size + (idx / size)] = tmp;
+    }*/
 }
 /*
 int n;
