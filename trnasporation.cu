@@ -6,14 +6,14 @@
 #include <iomanip>
 
 __global__ void transp(double *matrix, int size){
+
     //Индекс текущего блока в гриде
     int blockIndex = blockIdx.x + blockIdx.y*gridDim.x + blockIdx.z*gridDim.y*gridDim.x;
     //Индекс треда внутри текущего блока
     int ThreadIndex = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
-
     //глобальный индекс нити
     int idx = blockIndex*blockDim.x*blockDim.y*blockDim.z + ThreadIndex;
-    printf("In thread %d\n", idx);
+    sprintf(stdout, "In thread %d\n", idx);
     if (idx / size > idx % size){
         printf("%lf %lf\n", matrix[(idx / size) * size + (idx % size)], matrix[(idx % size) * size + (idx / size)]);
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
@@ -41,6 +41,7 @@ bool transpose(double* matrix, double* res_gpu) //либо int matrix[][5], ли
     auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
  	std::cout << "Time for CPU: " << elapsed_seconds.count() << "s\n";
+    std::cout << "CPU" << '\n';
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
             std::cout << std::setw(8) << matrix[i * n + j];
@@ -134,7 +135,7 @@ int main(int argc, char const *argv[]) {
     matrix_res = (double*)malloc(bytes);
 
     cudaMemcpy(matrix_res, gpu_matrix, bytes, cudaMemcpyDeviceToHost);
-
+    std::cout << "GPU: " << '\n';
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
             std::cout << std::setw(8) << matrix_res[i * n + j];
