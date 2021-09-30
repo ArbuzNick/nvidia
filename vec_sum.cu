@@ -86,6 +86,7 @@ int main(int argc, char* argv[]){
 
 	auto start = std::chrono::steady_clock::now();
 	vecAdd<<<grid_size, block_size>>>(A_gpu, B_gpu, res_gpu);
+	cudaDeviceSynchronize();
 	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
  	std::cout << "Time for GPU: " << elapsed_seconds.count() << "s\n";
