@@ -110,8 +110,8 @@ int main(int argc, char const *argv[]) {
     int grid_size = (n - 1) / block_size + 1;
 
     double *gpu_matrix;
-    dim2 dimBlock(block_size, block_size);
-    dim2 dimGrid(grid_size, grid_size);
+    dim3 dimBlock(block_size, block_size, 1);
+    dim3 dimGrid(grid_size, grid_size, 1);
     cudaMalloc(&gpu_matrix, bytes);
 
     cudaMemcpy(gpu_matrix, matrix, bytes, cudaMemcpyHostToDevice);
