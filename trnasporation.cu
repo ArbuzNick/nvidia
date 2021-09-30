@@ -13,7 +13,7 @@ __global__ void transp(double *matrix, int size){
     int ThreadIndex = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
     //глобальный индекс нити
     int idx = blockIndex*blockDim.x*blockDim.y*blockDim.z + ThreadIndex;
-    sprintf(stdout, "In thread %d\n", idx);
+    printf("In thread %d\n", idx);
     if (idx / size > idx % size){
         printf("%lf %lf\n", matrix[(idx / size) * size + (idx % size)], matrix[(idx % size) * size + (idx / size)]);
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
