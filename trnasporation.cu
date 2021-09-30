@@ -13,7 +13,7 @@ __global__ void transp(double *matrix, int size){
     //глобальный индекс нити
     int idx = blockIndex*blockDim.x*blockDim.y + ThreadIndex;
 
-    if (idx / size > idy % size){
+    if (idx / size > idx % size){
         //std::cout << "[" << idx << ", " << idy << "] = " << matrix[idx][idy] << '\n';
         double tmp = matrix[(idx / size) * size + (idx % size)];
         matrix[(idx / size) * size + (idx % size)] = matrix[(idx % size) * size + (idx / size)];
