@@ -7,12 +7,7 @@
 
 __global__ void transp(double *matrix, int size){
     printf("Hello?\n");
-    //Индекс текущего блока в гриде
-    int blockIndex = blockIdx.x + blockIdx.y*gridDim.x + blockIdx.z*gridDim.y*gridDim.x;
-    //Индекс треда внутри текущего блока
-    int ThreadIndex = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
-    //глобальный индекс нити
-    int idx = blockIndex*blockDim.x*blockDim.y*blockDim.z + ThreadIndex;
+    int idx = blockIdx.x*blockDim.x + threadIdx.x;
     printf("In thread %d\n", idx);
     if (idx / size > idx % size){
         printf("%lf %lf\n", matrix[(idx / size) * size + (idx % size)], matrix[(idx % size) * size + (idx / size)]);
@@ -109,7 +104,7 @@ int main(int argc, char const *argv[]) {
     }
 
     int block_size = 1024;
-    int grid_size = (n - 1) / block_size + 1;
+    int grid_size = (n * n - 1) / block_size + 1;
 
     double *gpu_matrix;
     dim3 dimBlock(block_size, block_size, 1);
